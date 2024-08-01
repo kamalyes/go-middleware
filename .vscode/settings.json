@@ -139,6 +139,7 @@
       "mapstructure",
       "Mqtt",
       "postgre",
+      "stretchr",
       "ulule",
       "varchar",
       "Wechat"
