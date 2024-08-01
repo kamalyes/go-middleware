@@ -17,8 +17,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// Cors 跨域中间件
-func Cors() gin.HandlerFunc {
+// CorsMiddleware 跨域中间件
+func CorsMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		method := c.Request.Method
 		origin := c.Request.Header.Get("Origin") // 请求头部

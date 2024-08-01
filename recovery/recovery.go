@@ -23,23 +23,28 @@ import (
 	"go.uber.org/zap"
 )
 
-// GinRecovery recover掉项目可能出现的panic，并使用zap记录相关日志
-func GinRecovery(stack bool) gin.HandlerFunc {
+// GinRecoveryMiddleware 用于recover可能出现的panic，并使用zap记录相关日志
+func GinRecoveryMiddleware(stack bool) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		defer func() {
 			if err := recover(); err != nil {
-				// 检查断开的连接,不需要跟踪
+				// 检查错误类型
 				var brokenPipe bool
 				if ne, ok := err.(*net.OpError); ok {
 					if se, ok := ne.Err.(*os.SyscallError); ok {
-						if strings.Contains(strings.ToLower(se.Error()), "broken pipe") || strings.Contains(strings.ToLower(se.Error()), "connection reset by peer") {
+						errorMsg := strings.ToLower(se.Error())
+						if strings.Contains(errorMsg, "broken pipe") || strings.Contains(errorMsg, "connection reset by peer") {
 							brokenPipe = true
 						}
 					}
 				}
+
+				// 获取请求信息
 				httpRequest, _ := httputil.DumpRequest(c.Request, false)
+
+				// 错误处理
 				if brokenPipe {
-					global.LOG.Error(c.Request.URL.Path,
+					global.LOG.Error("Broken pipe or connection reset by peer",
 						zap.Any("error", err),
 						zap.String("request", string(httpRequest)),
 					)
@@ -48,18 +53,20 @@ func GinRecovery(stack bool) gin.HandlerFunc {
 					return
 				}
 
-				if stack {
-					global.LOG.Error("[Recovery from panic]",
-						zap.Any("error", err),
-						zap.String("request", string(httpRequest)),
-						zap.String("stack", string(debug.Stack())),
-					)
-				} else {
-					global.LOG.Error("[Recovery from panic]",
-						zap.Any("error", err),
-						zap.String("request", string(httpRequest)),
-					)
+				// 日志记录
+				logFields := []zap.Field{
+					zap.Any("error", err),
+					zap.String("request", string(httpRequest)),
 				}
+				if stack {
+					logFields = append(logFields, zap.String("stack", string(debug.Stack())))
+				}
+
+				global.LOG.Error("Recovery from panic",
+					logFields...,
+				)
+
+				// 返回500错误
 				c.AbortWithStatus(http.StatusInternalServerError)
 			}
 		}()

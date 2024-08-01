@@ -18,8 +18,8 @@ import (
 	"github.com/kamalyes/go-core/jwt"
 )
 
-// JWTAuth JWT 认证中间件
-func JWTAuth() gin.HandlerFunc {
+// JWTAuthMiddleware JWT 认证中间件
+func JWTAuthMiddleware() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		path := ctx.Request.URL.Path
 		if strings.Contains(path, "swagger") {

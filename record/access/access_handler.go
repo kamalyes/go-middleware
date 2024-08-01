@@ -185,8 +185,8 @@ func getHeader(c *gin.Context) (headerStr string) {
 	return
 }
 
-// AccessRecordHandler 访问记录 retainDays 请求记录保留的时间
-func AccessRecordHandler(retainDays int) gin.HandlerFunc {
+// AccessRecordMiddleware 访问记录 retainDays 请求记录保留的时间
+func AccessRecordMiddleware(retainDays int) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var body []byte
 		record := AccessRecordModel{}
