@@ -1,0 +1,48 @@
+/*
+ * @Author: kamalyes 501893067@qq.com
+ * @Date: 2023-07-28 00:50:58
+ * @LastEditors: kamalyes 501893067@qq.com
+ * @LastEditTime: 2023-07-28 09:05:05
+ * @FilePath: \go-middleware\record\access\service.go
+ * @Description:
+ *
+ * Copyright (c) 2024 by kamalyes, All Rights Reserved.
+ */
+package access
+
+import (
+	"github.com/golang-module/carbon/v2"
+	"github.com/kamalyes/go-core/db"
+	"github.com/kamalyes/go-core/global"
+	"github.com/kamalyes/go-toolbox/page"
+	"go.uber.org/zap"
+)
+
+type AccessRecordService struct{}
+
+var AccessRecordServiceApp = new(AccessRecordService)
+
+// CreateAccessRecord 创建记录
+func (opt *AccessRecordService) CreateAccessRecord(record AccessRecordModel, retainDays int) (err error) {
+	err = global.DB.Create(&record).Error
+	go func() {
+		// 默认保留7天
+		if retainDays < 7 {
+			retainDays = 7
+		}
+		time := carbon.Now().SubDays(retainDays).ToDateTimeString()
+		err = global.DB.Where("create_time < ?", time).Delete(&AccessRecordModel{}).Error
+		if err != nil {
+			global.LOG.Error("删除访问记录异常：", zap.Any("err", err))
+		}
+	}()
+	return err
+}
+
+// GetAccessRecordPage 分页获取操作记录列表
+func (opt *AccessRecordService) GetAccessRecordPage(pageInfo *page.PageInfo) (err error, pageBean *page.PageBean) {
+	pageBean = &page.PageBean{Page: pageInfo.Current, PageSize: pageInfo.RowCount}
+	rows := make([]*AccessRecordModel, 0)
+	err, pageBean = db.FindPage(&AccessRecordModel{}, &rows, pageInfo)
+	return
+}
