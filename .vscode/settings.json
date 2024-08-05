@@ -123,6 +123,8 @@
     },
     "cSpell.words": [
       "ADMI",
+      "Alloc",
+      "allocs",
       "Amap",
       "bwmarrin",
       "casbin",
@@ -135,11 +137,14 @@
       "gonic",
       "Gorm",
       "Herader",
+      "Inuse",
       "kamalyes",
+      "Mallocs",
       "mapstructure",
       "Mqtt",
       "postgre",
       "stretchr",
+      "threadcreate",
       "ulule",
       "varchar",
       "Wechat"
