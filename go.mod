@@ -9,7 +9,7 @@ require (
 	github.com/kamalyes/go-core v0.0.6
 	github.com/kamalyes/go-toolbox v0.0.9
 	github.com/stretchr/testify v1.9.0
-	github.com/ulule/limiter/v3 v3.9.0
+	github.com/ulule/limiter/v3 v3.11.2
 	go.uber.org/zap v1.27.0
 )
 
@@ -24,6 +24,7 @@ require (
 	github.com/minio/md5-simd v1.1.2 // indirect
 	github.com/minio/minio-go/v7 v7.0.74 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
+	github.com/redis/go-redis/v9 v9.0.4 // indirect
 	github.com/rs/xid v1.5.0 // indirect
 	github.com/spf13/viper v1.10.1 // indirect
 	gorm.io/gorm v1.25.11 // indirect
