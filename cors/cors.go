@@ -2,7 +2,7 @@
  * @Author: kamalyes 501893067@qq.com
  * @Date: 2023-07-28 00:50:58
  * @LastEditors: kamalyes 501893067@qq.com
- * @LastEditTime: 2024-08-01 17:08:16
+ * @LastEditTime: 2024-08-05 19:31:23
  * @FilePath: \go-middleware\cors\cors.go
  * @Description:
  *
@@ -18,7 +18,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	kgoConfig "github.com/kamalyes/go-config"
-	"github.com/kamalyes/go-toolbox/stringx"
+	"github.com/kamalyes/go-toolbox/convert"
 )
 
 // CorsMiddleware 跨域中间件
@@ -44,7 +44,7 @@ func CorsMiddleware() gin.HandlerFunc {
 			// 设置缓存时间
 			c.Header("Access-Control-Max-Age", globalConfig.Cors.MaxAge)
 			// 允许客户端传递校验信息比如 cookie (重要)
-			c.Header("Access-Control-Allow-Credentials", stringx.ParseStr(globalConfig.Cors.AllowCredentials))
+			c.Header("Access-Control-Allow-Credentials", convert.MustString(globalConfig.Cors.AllowCredentials))
 		}
 
 		// 允许类型校验

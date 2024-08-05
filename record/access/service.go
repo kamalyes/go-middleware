@@ -15,6 +15,7 @@ import (
 	"github.com/kamalyes/go-core/db"
 	"github.com/kamalyes/go-core/global"
 	"github.com/kamalyes/go-core/page"
+	"github.com/kamalyes/go-middleware/internal"
 	"go.uber.org/zap"
 )
 
@@ -33,7 +34,7 @@ func (opt *AccessRecordService) CreateAccessRecord(record AccessRecordModel, ret
 		time := carbon.Now().SubDays(retainDays).ToDateTimeString()
 		err = global.DB.Where("create_time < ?", time).Delete(&AccessRecordModel{}).Error
 		if err != nil {
-			global.LOG.Error("删除访问记录异常：", zap.Any("err", err))
+			global.LOG.Error(internal.ErrDeleteRecordData, zap.Any("err", err))
 		}
 	}()
 	return err

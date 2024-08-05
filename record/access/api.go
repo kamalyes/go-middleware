@@ -15,6 +15,7 @@ import (
 	"github.com/kamalyes/go-core/global"
 	"github.com/kamalyes/go-core/page"
 	"github.com/kamalyes/go-core/result"
+	"github.com/kamalyes/go-middleware/internal"
 	"go.uber.org/zap"
 )
 
@@ -24,14 +25,14 @@ type AccessRecordApi struct{}
 func (s *AccessRecordApi) GetAccessRecordPage(c *gin.Context) {
 	pageInfo := page.PageParam(c)
 	if pageInfo == nil {
-		result.FailMsg("获取失败,解析请求参数异常", c)
+		result.FailMsg(internal.ErrParseRequestData, c)
 		return
 	}
 	err, pageBean := AccessRecordServiceApp.GetAccessRecordPage(pageInfo)
 	if err != nil {
-		global.LOG.Error("获取接口访问记录失败:", zap.Any("err", err))
-		result.FailMsg("获取接口访问记录失败", c)
+		global.LOG.Error(internal.ErrGainRecordResponse, zap.Any("err", err))
+		result.FailMsg(internal.ErrGainRecordResponse, c)
 	} else {
-		result.OkDataMsg(pageBean, "获取成功", c)
+		result.OkDataMsg(pageBean, internal.GainSuccess, c)
 	}
 }

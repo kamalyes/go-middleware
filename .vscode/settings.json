@@ -141,12 +141,14 @@
       "kamalyes",
       "Mallocs",
       "mapstructure",
+      "Messagef",
       "Mqtt",
       "postgre",
       "stretchr",
       "threadcreate",
       "ulule",
       "varchar",
-      "Wechat"
+      "Wechat",
+      "Wrapf"
     ]
 }

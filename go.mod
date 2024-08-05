@@ -10,7 +10,7 @@ require (
 	github.com/kamalyes/go-toolbox v0.0.9
 	github.com/mssola/user_agent v0.6.0
 	github.com/stretchr/testify v1.9.0
-	github.com/ulule/limiter/v3 v3.11.2
+	github.com/ulule/limiter/v3 v3.9.0
 	go.uber.org/zap v1.27.0
 )
 
@@ -34,7 +34,7 @@ require (
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.22.0 // indirect
-	github.com/go-redis/redis/v8 v8.11.0 // indirect
+	github.com/go-redis/redis/v8 v8.11.4 // indirect
 	github.com/go-sql-driver/mysql v1.7.0 // indirect
 	github.com/goccy/go-json v0.10.3 // indirect
 	github.com/golang-jwt/jwt/v4 v4.3.0 // indirect
@@ -67,7 +67,6 @@ require (
 	github.com/pelletier/go-toml/v2 v2.2.2 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	github.com/redis/go-redis/v9 v9.0.4 // indirect
 	github.com/rs/xid v1.5.0 // indirect
 	github.com/spf13/afero v1.6.0 // indirect
 	github.com/spf13/cast v1.4.1 // indirect
