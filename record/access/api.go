@@ -13,8 +13,8 @@ package access
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/kamalyes/go-core/global"
-	"github.com/kamalyes/go-toolbox/page"
-	"github.com/kamalyes/go-toolbox/result"
+	"github.com/kamalyes/go-core/page"
+	"github.com/kamalyes/go-core/result"
 	"go.uber.org/zap"
 )
 

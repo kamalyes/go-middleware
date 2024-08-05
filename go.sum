@@ -151,10 +151,10 @@ github.com/json-iterator/go v1.1.12 h1:PV8peI4a0ysnczrg+LtxykD8LfKY9ML6u2jnxaEnr
 github.com/json-iterator/go v1.1.12/go.mod h1:e30LSqwooZae/UwlEbR2852Gd8hjQvJoHmT4TnhNGBo=
 github.com/kamalyes/go-config v0.0.5 h1:LzOc/8sJTLFEvcYUbtK5cfjVa00LPzClLgF09Babsn0=
 github.com/kamalyes/go-config v0.0.5/go.mod h1:NxHXdZP9dLCGzqYMVjG4Tzm6IjudTeYQB+wfbqKrM9I=
-github.com/kamalyes/go-core v0.0.4 h1:7wyu1HalImiyj8Zb1H9IuFKhR3MZkT8hkbx1tFyhRUQ=
-github.com/kamalyes/go-core v0.0.4/go.mod h1:Ppei/M8ME+sLLUKXX7JgKqTDKQ/1SqzloxtCAsY79zA=
-github.com/kamalyes/go-toolbox v0.0.7 h1:cWXrxNSsXRhEJa7OAA5dv0cwTXNNApYBn5pAdj9oxw4=
-github.com/kamalyes/go-toolbox v0.0.7/go.mod h1:bcS26dv9Fe9LQRl2Ny/d6kl/9NtqeyON/2ntfntl0fY=
+github.com/kamalyes/go-core v0.0.6 h1:82OPyeB/1rkGZhWlyGKORq0Zyn9VqmZDpaSojjNPFxo=
+github.com/kamalyes/go-core v0.0.6/go.mod h1:HLre+xGtohXvF/4zaxknqUO9jGF6aG5F3c91lpToMHo=
+github.com/kamalyes/go-toolbox v0.0.9 h1:dmBu2jYeGS5v+QCUq/TYHttE15/hHAB4F4/wAWHOXdQ=
+github.com/kamalyes/go-toolbox v0.0.9/go.mod h1:hisB2I7194xGmmVJlDp8ZXoe9+nDIXDGij9V0wqgz40=
 github.com/kisielk/gotool v1.0.0/go.mod h1:XhKaO+MFFWcvkIS/tQcRk01m1F5IRFswLeQ+oQHNcck=
 github.com/klauspost/compress v1.17.9 h1:6KIumPrER1LHsvBVuDa0r5xaG0Es51mhhB9BQB2qeMA=
 github.com/klauspost/compress v1.17.9/go.mod h1:Di0epgTjJY877eYKx5yC51cX2A2Vl2ibi7bDH9ttBbw=

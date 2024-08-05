@@ -14,7 +14,7 @@ import (
 	"github.com/golang-module/carbon/v2"
 	"github.com/kamalyes/go-core/db"
 	"github.com/kamalyes/go-core/global"
-	"github.com/kamalyes/go-toolbox/page"
+	"github.com/kamalyes/go-core/page"
 	"go.uber.org/zap"
 )
 

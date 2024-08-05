@@ -6,8 +6,8 @@ require (
 	github.com/gin-gonic/gin v1.10.0
 	github.com/golang-module/carbon/v2 v2.3.12
 	github.com/kamalyes/go-config v0.0.5
-	github.com/kamalyes/go-core v0.0.4
-	github.com/kamalyes/go-toolbox v0.0.7
+	github.com/kamalyes/go-core v0.0.6
+	github.com/kamalyes/go-toolbox v0.0.9
 	github.com/stretchr/testify v1.9.0
 	github.com/ulule/limiter/v3 v3.9.0
 	go.uber.org/zap v1.27.0
