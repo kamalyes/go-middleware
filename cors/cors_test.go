@@ -2,7 +2,7 @@
  * @Author: kamalyes 501893067@qq.com
  * @Date: 2023-07-28 00:50:58
  * @LastEditors: kamalyes 501893067@qq.com
- * @LastEditTime: 2024-08-01 17:40:22
+ * @LastEditTime: 2024-08-12 23:24:57
  * @FilePath: \go-middleware\cors\cors_test.go
  * @Description:
  *
@@ -16,10 +16,14 @@ import (
 	"testing"
 
 	"github.com/gin-gonic/gin"
+	kgoConfig "github.com/kamalyes/go-config"
+	kgoGlobal "github.com/kamalyes/go-core/global"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestCorsMiddleware(t *testing.T) {
+	// 获取全局配置
+	kgoGlobal.CONFIG = kgoConfig.GlobalConfig()
 	router := gin.New()
 	router.Use(CorsMiddleware())
 

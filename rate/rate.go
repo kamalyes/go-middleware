@@ -2,7 +2,7 @@
  * @Author: kamalyes 501893067@qq.com
  * @Date: 2023-07-28 00:50:58
  * @LastEditors: kamalyes 501893067@qq.com
- * @LastEditTime: 2024-08-05 19:04:59
+ * @LastEditTime: 2024-08-12 23:19:39
  * @FilePath: \go-middleware\rate\rate.go
  * @Description: 限流中间件
  *
@@ -16,7 +16,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/kamalyes/go-core/global"
-	"github.com/kamalyes/go-core/result"
+	"github.com/kamalyes/go-core/pkg/response"
 	"github.com/kamalyes/go-middleware/internal"
 	"github.com/ulule/limiter/v3"
 	"github.com/ulule/limiter/v3/drivers/store/memory"
@@ -58,13 +58,13 @@ func newLimiter(formatted string, opts limiterOptions) *limiter.Limiter {
 func rateHandler(c *gin.Context, l *limiter.Limiter, key string) {
 	context, err := l.Get(c, key)
 	if err != nil {
-		result.FailMsg(internal.ErrGainClientKey, c)
+		response.GenResponse(c, &response.ResponseOption{Message: internal.ErrGainClientKey})
 		c.Abort()
 		return
 	}
 	setRateHeaders(context, c)
 	if context.Reached {
-		result.FailMsg(internal.ErrTooManyRequests, c)
+		response.GenResponse(c, &response.ResponseOption{Message: internal.ErrTooManyRequests})
 		c.Abort()
 		return
 	}

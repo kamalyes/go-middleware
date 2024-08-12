@@ -2,7 +2,7 @@
  * @Author: kamalyes 501893067@qq.com
  * @Date: 2023-07-28 00:50:58
  * @LastEditors: kamalyes 501893067@qq.com
- * @LastEditTime: 2024-08-06 16:34:27
+ * @LastEditTime: 2024-08-12 23:05:41
  * @FilePath: \go-middleware\prometheus\handler.go
  * @Description:
  *
@@ -34,11 +34,8 @@ func NewPrometheusMonitorWithMetrics(e *gin.Engine, options ...func(*PrometheusM
 	}
 
 	pm := &PrometheusMonitor{
-		Engine: e,
-		Ignored: map[string]bool{
-			"/metrics":     true,
-			"/favicon.ico": true,
-		},
+		Engine:  e,
+		Ignored: GetIgnoredPaths(),
 		PathMap: &HandlerPath{},
 	}
 

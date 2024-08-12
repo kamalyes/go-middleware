@@ -15,14 +15,34 @@ import (
 	"compress/gzip"
 	"io"
 	"net/http"
+	"sync"
 
 	"github.com/gin-gonic/gin"
 	"github.com/kamalyes/go-middleware/internal"
 )
 
+var (
+	maxMemory   int64 = 64 << 20 // 64 MB
+	memoryMutex sync.Mutex
+)
+
+// GetMaxMemory 获取最大内存
+func GetMaxMemory() int64 {
+	memoryMutex.Lock()
+	defer memoryMutex.Unlock()
+	return maxMemory
+}
+
+// SetMaxMemory 设置最大内存
+func SetMaxMemory(memory int64) {
+	memoryMutex.Lock()
+	defer memoryMutex.Unlock()
+	maxMemory = memory
+}
+
 func CopyBodyMiddleware(skippers ...SkipperFunc) gin.HandlerFunc {
-	var maxMemory int64 = 64 << 20 // 64 MB
 	return func(c *gin.Context) {
+		// 检查是否跳过中间件或请求体为空
 		if SkipHandler(c, skippers...) || c.Request.Body == nil {
 			c.Next()
 			return
@@ -30,8 +50,9 @@ func CopyBodyMiddleware(skippers ...SkipperFunc) gin.HandlerFunc {
 
 		var requestBody []byte
 		isGzip := false
-		safe := &io.LimitedReader{R: c.Request.Body, N: maxMemory}
+		safe := &io.LimitedReader{R: c.Request.Body, N: GetMaxMemory()}
 
+		// 检查请求是否使用gzip压缩
 		if c.GetHeader("Content-Encoding") == "gzip" {
 			reader, err := gzip.NewReader(safe)
 			if err == nil {
@@ -40,13 +61,15 @@ func CopyBodyMiddleware(skippers ...SkipperFunc) gin.HandlerFunc {
 			}
 		}
 
+		// 如果不是gzip压缩或解压缩时出错，则直接读取请求体
 		if !isGzip {
 			requestBody, _ = io.ReadAll(safe)
 		}
 
+		// 关闭原始请求体，创建新的MaxBytesReader，将复制的请求体作为缓冲区
 		c.Request.Body.Close()
 		bf := bytes.NewBuffer(requestBody)
-		c.Request.Body = http.MaxBytesReader(c.Writer, io.NopCloser(bf), maxMemory)
+		c.Request.Body = http.MaxBytesReader(c.Writer, io.NopCloser(bf), GetMaxMemory())
 		c.Set(internal.ReqBodyKey, requestBody)
 
 		c.Next()

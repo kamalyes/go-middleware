@@ -2,7 +2,7 @@
  * @Author: kamalyes 501893067@qq.com
  * @Date: 2023-07-28 00:50:58
  * @LastEditors: kamalyes 501893067@qq.com
- * @LastEditTime: 2024-08-06 10:37:57
+ * @LastEditTime: 2024-08-12 17:28:42
  * @FilePath: \go-middleware\recovery\recovery_test.go
  * @Description:
  *
@@ -16,12 +16,17 @@ import (
 	"testing"
 
 	"github.com/gin-gonic/gin"
-	"github.com/kamalyes/go-core/global"
+	kgoConfig "github.com/kamalyes/go-config"
+	kgoGlobal "github.com/kamalyes/go-core/global"
+	"github.com/kamalyes/go-core/zap"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestGinRecoveryMiddleware(t *testing.T) {
-	global.InitZapLogger()
+	// 获取全局配置
+	kgoGlobal.CONFIG = kgoConfig.GlobalConfig()
+	// 初始化zap日志
+	kgoGlobal.LOG = zap.Zap()
 	gin.SetMode(gin.TestMode)
 
 	router := gin.New()

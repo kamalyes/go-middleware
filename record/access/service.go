@@ -12,9 +12,8 @@ package access
 
 import (
 	"github.com/golang-module/carbon/v2"
-	"github.com/kamalyes/go-core/db"
+	"github.com/kamalyes/go-core/database"
 	"github.com/kamalyes/go-core/global"
-	"github.com/kamalyes/go-core/page"
 	"github.com/kamalyes/go-middleware/internal"
 	"go.uber.org/zap"
 )
@@ -41,9 +40,9 @@ func (opt *AccessRecordService) CreateAccessRecord(record AccessRecordModel, ret
 }
 
 // GetAccessRecordPage 分页获取操作记录列表
-func (opt *AccessRecordService) GetAccessRecordPage(pageInfo *page.PageInfo) (err error, pageBean *page.PageBean) {
-	pageBean = &page.PageBean{Page: pageInfo.Current, PageSize: pageInfo.RowCount}
+func (opt *AccessRecordService) GetAccessRecordPage(pageInfo *database.PageInfo) (err error, pageBean *database.PageBean) {
+	pageBean = &database.PageBean{Page: pageInfo.Current, PageSize: pageInfo.RowCount}
 	rows := make([]*AccessRecordModel, 0)
-	err, pageBean = db.FindPage(&AccessRecordModel{}, &rows, pageInfo)
+	err, pageBean = database.FindPage(&AccessRecordModel{}, &rows, pageInfo)
 	return
 }

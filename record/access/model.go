@@ -2,7 +2,7 @@
  * @Author: kamalyes 501893067@qq.com
  * @Date: 2023-07-28 00:50:58
  * @LastEditors: kamalyes 501893067@qq.com
- * @LastEditTime: 2024-08-01 11:08:43
+ * @LastEditTime: 2024-08-01 11:08:55
  * @FilePath: \go-middleware\record\access\model.go
  * @Description:
  *
