@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/gin-gonic/gin v1.10.0
 	github.com/kamalyes/go-config v0.0.5
-	github.com/kamalyes/go-core v0.10.4
+	github.com/kamalyes/go-core v0.10.5
 	github.com/kamalyes/go-toolbox v0.10.0
 	github.com/mssola/user_agent v0.6.0
 	github.com/stretchr/testify v1.9.0
