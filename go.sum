@@ -101,8 +101,8 @@ github.com/kamalyes/go-config v0.0.5 h1:LzOc/8sJTLFEvcYUbtK5cfjVa00LPzClLgF09Bab
 github.com/kamalyes/go-config v0.0.5/go.mod h1:NxHXdZP9dLCGzqYMVjG4Tzm6IjudTeYQB+wfbqKrM9I=
 github.com/kamalyes/go-core v0.10.4 h1:JZ3IlHeLKaLv8tZ0OEV30swarvHrJVF4epU6PlGZZ9U=
 github.com/kamalyes/go-core v0.10.4/go.mod h1:pXPDqIxYmvG0QTdhwQCYeWKFUqBYMbOfm8UJnysFUCo=
-github.com/kamalyes/go-toolbox v0.10.0 h1:B4b9Y5rEPR7mMmPmzISPUqoSnraOkkCkT56tT6xBLf4=
-github.com/kamalyes/go-toolbox v0.10.0/go.mod h1:hisB2I7194xGmmVJlDp8ZXoe9+nDIXDGij9V0wqgz40=
+github.com/kamalyes/go-toolbox v0.10.1 h1:8vp/ImgH8aggb15OMeRwwUgCUE0Q47NklE0Gdu3E3Co=
+github.com/kamalyes/go-toolbox v0.10.1/go.mod h1:hisB2I7194xGmmVJlDp8ZXoe9+nDIXDGij9V0wqgz40=
 github.com/klauspost/compress v1.17.9 h1:6KIumPrER1LHsvBVuDa0r5xaG0Es51mhhB9BQB2qeMA=
 github.com/klauspost/compress v1.17.9/go.mod h1:Di0epgTjJY877eYKx5yC51cX2A2Vl2ibi7bDH9ttBbw=
 github.com/klauspost/cpuid/v2 v2.0.1/go.mod h1:FInQzS24/EEf25PyTYn52gqo7WaD8xa0213Md/qVLRg=
