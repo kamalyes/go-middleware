@@ -19,7 +19,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestPrometheusMonitor_Middleware(t *testing.T) {
+func TestPrometheusMonitorMiddleware(t *testing.T) {
 	// 创建一个请求
 	req := httptest.NewRequest("GET", "/test", nil)
 	w := httptest.NewRecorder()

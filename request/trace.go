@@ -2,7 +2,7 @@
  * @Author: kamalyes 501893067@qq.com
  * @Date: 2023-07-28 00:50:58
  * @LastEditors: kamalyes 501893067@qq.com
- * @LastEditTime: 2024-08-05 20:18:01
+ * @LastEditTime: 2024-08-12 23:49:58
  * @FilePath: \go-middleware\request\trace.go
  * @Description:
  *
@@ -12,26 +12,34 @@ package request
 
 import (
 	"context"
-	"fmt"
 	"os"
-	"sync/atomic"
-	"time"
+	"sync"
 
 	"github.com/gin-gonic/gin"
+	"github.com/kamalyes/go-toolbox/system"
 )
 
 var (
-	incrNum uint64
-	pid     = os.Getpid()
+	incrNum       uint64
+	pid           = os.Getpid()
+	mu            sync.Mutex
+	traceIdPrefix string
 )
+
+// SetTraceIdPrefix 设置TraceId Prefix，带锁
+func SetTraceIdPrefix(ns string) {
+	mu.Lock()
+	defer mu.Unlock()
+	traceIdPrefix = ns
+}
+
+// GetTraceIdPrefix 获取prefix
+func GetTraceIdPrefix() string {
+	return traceIdPrefix
+}
 
 // traceIDKey 用于在上下文中存储追踪ID的键
 type traceIDKey struct{}
-
-// generateTraceID 生成一个唯一的追踪ID
-func generateTraceID() string {
-	return fmt.Sprintf("trace-id-%d-%s-%d", pid, time.Now().Format("20060102150405999"), atomic.AddUint64(&incrNum, 1))
-}
 
 // NewTraceIDContext 将追踪ID存储到上下文中
 func NewTraceIDContext(ctx context.Context, traceID string) context.Context {
@@ -60,7 +68,7 @@ func TraceMiddleware(skippers ...SkipperFunc) gin.HandlerFunc {
 		// 从请求头中获取追踪ID，若为空则生成一个新的追踪ID
 		traceID := c.GetHeader("X-Request-Id")
 		if traceID == "" {
-			traceID = generateTraceID()
+			traceID = system.HashUnixMicroCipherText()
 		}
 
 		// 将追踪ID存储到上下文中，并设置响应头中的追踪ID

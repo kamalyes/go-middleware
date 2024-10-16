@@ -15,20 +15,20 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/kamalyes/go-core/pkg/response"
+	"github.com/kamalyes/go-core/response"
 )
 
 // NoMethodHandler 处理请求方法不被允许的情况
 func NoMethodHandler() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		response.GenResponse(ctx, &response.ResponseOption{Code: 405, Message: "方法不允许", HttpCode: 405})
+		response.GenGinResponse(ctx, &response.ResponseOption{Code: response.SceneCode(response.StatusMethodNotAllowed), Message: "方法不允许", HttpCode: response.StatusMethodNotAllowed})
 	}
 }
 
 // NoRouteHandler 处理请求路由不存在的情况
 func NoRouteHandler() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		response.GenResponse(ctx, &response.ResponseOption{Code: 404, Message: "路由不存在", HttpCode: 404})
+		response.GenGinResponse(ctx, &response.ResponseOption{Code: response.SceneCode(response.StatusNotFound), Message: "路由不存在", HttpCode: response.StatusNotFound})
 	}
 }
 

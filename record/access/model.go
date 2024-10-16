@@ -12,7 +12,7 @@ package access
 
 import (
 	"github.com/kamalyes/go-core/global"
-	"github.com/kamalyes/go-middleware/internal"
+	"github.com/kamalyes/go-middleware/constants"
 	"go.uber.org/zap"
 )
 
@@ -23,7 +23,7 @@ func AutoCreateTables() {
 			AccessRecordModel{},
 		)
 		if err != nil {
-			global.LOG.Error(internal.ErrCreateRecordTable, zap.Any("err", err))
+			global.LOG.Error(constants.ErrCreateRecordTable, zap.Any("err", err))
 		}
 	}
 }
