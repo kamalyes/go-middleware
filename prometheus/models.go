@@ -20,7 +20,7 @@ var (
 	LabelNames    = []string{"service", "method", "code", "endpoint", "client_ip", "size"}
 	subSystem     = system.SafeGetHostName()
 	HTTPHistogram = prometheus.NewHistogramVec(prometheus.HistogramOpts{
-		Namespace:   Namespace,
+		Namespace:   GetNamespace(),
 		Subsystem:   subSystem,
 		Name:        "response_info",
 		Help:        "Histogram of response of http handlers.",
@@ -29,14 +29,14 @@ var (
 	}, LabelNames)
 
 	SlowApplies = prometheus.NewCounter(prometheus.CounterOpts{
-		Namespace: Namespace,
+		Namespace: GetNamespace(),
 		Subsystem: subSystem,
 		Name:      "slow_apply_total",
 		Help:      "The total number of slow apply requests (likely overloaded from slow disk).",
 	})
 
 	ApplySec = prometheus.NewHistogramVec(prometheus.HistogramOpts{
-		Namespace: Namespace,
+		Namespace: GetNamespace(),
 		Subsystem: subSystem,
 		Name:      "apply_duration_seconds",
 		Help:      "The latency distributions of v2 apply called by backend.",

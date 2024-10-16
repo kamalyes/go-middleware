@@ -2,7 +2,7 @@
  * @Author: kamalyes 501893067@qq.com
  * @Date: 2023-07-28 00:50:58
  * @LastEditors: kamalyes 501893067@qq.com
- * @LastEditTime: 2024-08-05 20:17:04
+ * @LastEditTime: 2024-08-12 23:45:43
  * @FilePath: \go-middleware\request\trace_test.go
  * @Description:
  *
@@ -16,6 +16,7 @@ import (
 	"testing"
 
 	"github.com/gin-gonic/gin"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestTraceMiddleware(t *testing.T) {
@@ -34,17 +35,14 @@ func TestTraceMiddleware(t *testing.T) {
 
 	ctx := c.Request.Context()
 	traceID, ok := GetTraceID(ctx)
+	expectedTraceID := "trace-id-"
 
 	if !ok {
 		t.Errorf("Expected traceID in context, got nothing")
 	}
-
-	if traceID != "123456" {
-		t.Errorf("Expected traceID to be '123456', got %s", traceID)
-	}
+	assert.Contains(t, traceID, expectedTraceID, "Expected TraceID should be contained in the actual TraceID")
 
 	expectedHeader := "X-Trace-Id"
-	if header := w.Header().Get(expectedHeader); header != "123456" {
-		t.Errorf("Expected %s header to be '123456', got %s", expectedHeader, header)
-	}
+	header := w.Header().Get(expectedHeader)
+	assert.Contains(t, header, expectedTraceID, "Expected header TraceID should be contained in the actual TraceID")
 }

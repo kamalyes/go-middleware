@@ -18,7 +18,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Test_getPrefix(t *testing.T) {
+func TestGetPrefix(t *testing.T) {
 	tests := []struct {
 		name string
 		args []string

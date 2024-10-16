@@ -18,12 +18,12 @@ import (
 	"sync"
 
 	"github.com/gin-gonic/gin"
-	"github.com/kamalyes/go-middleware/internal"
 )
 
 var (
 	maxMemory   int64 = 64 << 20 // 64 MB
 	memoryMutex sync.Mutex
+	reqBodyKey  string = "/req-body"
 )
 
 // GetMaxMemory 获取最大内存
@@ -70,7 +70,7 @@ func CopyBodyMiddleware(skippers ...SkipperFunc) gin.HandlerFunc {
 		c.Request.Body.Close()
 		bf := bytes.NewBuffer(requestBody)
 		c.Request.Body = http.MaxBytesReader(c.Writer, io.NopCloser(bf), GetMaxMemory())
-		c.Set(internal.ReqBodyKey, requestBody)
+		c.Set(reqBodyKey, requestBody)
 
 		c.Next()
 	}

@@ -2,7 +2,7 @@
  * @Author: kamalyes 501893067@qq.com
  * @Date: 2023-07-28 00:50:58
  * @LastEditors: kamalyes 501893067@qq.com
- * @LastEditTime: 2024-08-05 19:34:23
+ * @LastEditTime: 2024-10-16 11:20:38
  * @FilePath: \go-middleware\jwt\jwt.go
  * @Description:
  *
@@ -16,7 +16,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/kamalyes/go-core/jwt"
-	"github.com/kamalyes/go-middleware/internal"
+	"github.com/kamalyes/go-middleware/constants"
 )
 
 // JWTAuthMiddleware JWT 认证中间件
@@ -35,7 +35,7 @@ func JWTAuthMiddleware() gin.HandlerFunc {
 		if token == "" {
 			ctx.JSON(http.StatusUnauthorized, gin.H{
 				"code":    -1,
-				"message": internal.ErrUnauthorized,
+				"message": constants.ErrUnauthorized,
 			})
 			ctx.Abort()
 			return

@@ -2,7 +2,7 @@
  * @Author: kamalyes 501893067@qq.com
  * @Date: 2023-07-28 00:50:58
  * @LastEditors: kamalyes 501893067@qq.com
- * @LastEditTime: 2023-07-28 09:05:05
+ * @LastEditTime: 2024-10-16 10:53:43
  * @FilePath: \go-middleware\record\access\service.go
  * @Description:
  *
@@ -14,7 +14,7 @@ import (
 	"github.com/golang-module/carbon/v2"
 	"github.com/kamalyes/go-core/database"
 	"github.com/kamalyes/go-core/global"
-	"github.com/kamalyes/go-middleware/internal"
+	"github.com/kamalyes/go-middleware/constants"
 	"go.uber.org/zap"
 )
 
@@ -33,7 +33,7 @@ func (opt *AccessRecordService) CreateAccessRecord(record AccessRecordModel, ret
 		time := carbon.Now().SubDays(retainDays).ToDateTimeString()
 		err = global.DB.Where("create_time < ?", time).Delete(&AccessRecordModel{}).Error
 		if err != nil {
-			global.LOG.Error(internal.ErrDeleteRecordData, zap.Any("err", err))
+			global.LOG.Error(constants.ErrDeleteRecordData, zap.Any("err", err))
 		}
 	}()
 	return err

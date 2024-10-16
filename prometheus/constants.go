@@ -16,9 +16,9 @@ import (
 )
 
 var (
-	Namespace    = "go_middleware" // 坑 不能是xx-xx
+	namespace    = "go_middleware" // 坑 不能是xx-xx
 	mu           sync.Mutex
-	IgnoredPaths = map[string]bool{
+	ignoredPaths = map[string]bool{
 		"/metrics":     true,
 		"/favicon.ico": true,
 	}
@@ -28,12 +28,12 @@ var (
 func SetNamespace(ns string) {
 	mu.Lock()
 	defer mu.Unlock()
-	Namespace = ns
+	namespace = ns
 }
 
 // GetNamespace 获取Namespace
 func GetNamespace() string {
-	return Namespace
+	return namespace
 }
 
 // AddIgnoredPath 添加自定义的默认忽略路径
@@ -47,9 +47,9 @@ func AddIgnoredPath(path string) {
 	}
 
 	// 检查该路径是否已存在
-	if _, exists := IgnoredPaths[path]; !exists {
+	if _, exists := ignoredPaths[path]; !exists {
 		// 不存在则添加路径
-		IgnoredPaths[path] = true
+		ignoredPaths[path] = true
 		fmt.Printf("Path '%s' has been added to the ignored paths.\n", path)
 	}
 }
@@ -58,5 +58,5 @@ func AddIgnoredPath(path string) {
 func GetIgnoredPaths() map[string]bool {
 	mu.Lock()
 	defer mu.Unlock()
-	return IgnoredPaths
+	return ignoredPaths
 }

@@ -2,7 +2,7 @@
  * @Author: kamalyes 501893067@qq.com
  * @Date: 2023-07-28 00:50:58
  * @LastEditors: kamalyes 501893067@qq.com
- * @LastEditTime: 2024-08-12 23:19:39
+ * @LastEditTime: 2024-10-16 11:12:26
  * @FilePath: \go-middleware\rate\rate.go
  * @Description: 限流中间件
  *
@@ -15,17 +15,12 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/kamalyes/go-core/global"
-	"github.com/kamalyes/go-core/pkg/response"
-	"github.com/kamalyes/go-middleware/internal"
+	"github.com/kamalyes/go-config/global"
+	"github.com/kamalyes/go-core/response"
+	"github.com/kamalyes/go-middleware/constants"
 	"github.com/ulule/limiter/v3"
 	"github.com/ulule/limiter/v3/drivers/store/memory"
 	"github.com/ulule/limiter/v3/drivers/store/redis"
-)
-
-var (
-	// REDIS 用于存储 Redis 客户端实例
-	REDIS *redis.Client
 )
 
 type limiterOptions struct {
@@ -44,7 +39,7 @@ func newLimiter(formatted string, opts limiterOptions) *limiter.Limiter {
 			Prefix: opts.KeyPrefix,
 		})
 		if err != nil {
-			panic(internal.ErrLimiterInit + err.Error())
+			panic(err.Error())
 		}
 	}
 
@@ -58,13 +53,15 @@ func newLimiter(formatted string, opts limiterOptions) *limiter.Limiter {
 func rateHandler(c *gin.Context, l *limiter.Limiter, key string) {
 	context, err := l.Get(c, key)
 	if err != nil {
-		response.GenResponse(c, &response.ResponseOption{Message: internal.ErrGainClientKey})
+		respOption := response.ResponseOption{Message: constants.ErrGainClientKey, HttpCode: response.StatusInternalServerError, Code: response.Fail}
+		respOption.Sub(c)
 		c.Abort()
 		return
 	}
 	setRateHeaders(context, c)
 	if context.Reached {
-		response.GenResponse(c, &response.ResponseOption{Message: internal.ErrTooManyRequests})
+		respOption := response.ResponseOption{Message: constants.ErrTooManyRequests, HttpCode: response.StatusTooManyRequests, Code: response.RateLimit}
+		respOption.Sub(c)
 		c.Abort()
 		return
 	}
